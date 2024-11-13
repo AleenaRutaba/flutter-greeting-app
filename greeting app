@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(Greeting_App()); // Starts the app
+}
+
+class Greeting_App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: GreetingDisplay(), // Main screen of the app
+    );
+  }
+}
+
+class GreetingDisplay extends StatefulWidget {
+  @override
+  _ScreenState createState() => _ScreenState();
+}
+
+class _ScreenState extends State<GreetingDisplay> {
+  final _controller = TextEditingController(); // Manages text input
+  String _UserInput = ''; // Stores greeting message
+
+  void _showResponse() {
+    setState(() {
+      // Updates the greeting based on input
+      _UserInput = _controller.text.isEmpty
+          ? 'Please enter your name.'
+          : 'Hey yeah!, ${_controller.text}!';
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Greeting_App')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                hintText: 'Enter your name', // Placeholder text
+              ),
+            ),
+            ElevatedButton(
+              onPressed: _showResponse, // Calls function when clicked
+              child: Text('Show_Greeting'),
+            ),
+            Text(
+              _UserInput, // Displays the greeting
+              style: TextStyle(fontSize: 24),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
